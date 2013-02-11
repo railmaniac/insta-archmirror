@@ -4,12 +4,10 @@ import sys
 import BaseHTTPServer
 
 # Some configuration
-dirlist = ["/var/lib/pacman/sync", "/var/cache/pacman/pkg"]
 filehash = {}
-port = 9000
 
 class MyFileObj:
-    '''Object to denote a file in the paths declared above'''
+    '''Object to denote a file in the paths declared'''
     def __init__(this, path, name):
         '''Constructor'''
         this.path = path
@@ -23,8 +21,9 @@ class MyFileObj:
 def init(x, l):
     '''Initialize the dictionary'''
     for d in l:
-        for f in listdir(d):
-            o = MyFileObj(d, f)
+        folder = d.rstrip()
+        for f in listdir(folder):
+            o = MyFileObj(folder, f)
             o.addto(x)
 
 def req(x, url):
@@ -63,15 +62,10 @@ class PacHandler(BaseHTTPServer.BaseHTTPRequestHandler):
             s.send_header('Content-type', 'text/html')
             s.end_headers()
 
-def main(args):
+def main(cnf = "dirs.arch", port = 9000):
     '''main method; execution to start here'''
     global filehash
-    global port
-    global dirlist
-    try:
-        port = int(args[args.index('-p') + 1])
-    except ValueError:
-        pass
+    dirlist = open(cnf, 'r')
 
     print "Loading files"
     init(filehash, dirlist)
@@ -85,4 +79,19 @@ def main(args):
     httpd.server_close()
 
 if __name__ == '__main__':
-    main(sys.argv)
+    def mygetopt(arr, flag):
+        '''Quick and dirty way of getting command line options'''
+        return arr[arr.index(flag) + 1]
+
+    port = 9000
+    cnf = "dirs.arch"
+    try:
+        port = int(mygetopt(sys.argv, '-p'))
+    except ValueError:
+        pass
+    try:
+        cnf = mygetopt(sys.argv, '-c')
+    except ValueError:
+        pass
+    
+    main(cnf, port)
