@@ -3,14 +3,14 @@ temporary mirror. This was written for and tested only on Arch Linux, but can th
 by changing directory of where the packages are cached.
 
 Usage scenario:
-1. Archlinux installed on machine A and netinstall being done on machine B. A acts as mirror.
 
+1. Archlinux installed on machine A and netinstall being done on machine B. A acts as mirror.
 2. Archlinux installed on Host A and netinstall being done on VM B. A acts as mirror.
 
 Quickstart:
+
 1. On machine A, launch the script.
       python2 mirror.py [-c dirs_file] [-p port_no]
-
 2. On machine B, add the address of machine A as the topmost mirror. In /etc/pacman.d/mirrorlist:
       Server = http://machineA:port_no/
 
