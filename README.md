@@ -10,9 +10,12 @@ Usage scenario:
 Quickstart:
 
 1. On machine A, launch the script.
-      python2 mirror.py [-c dirs_file] [-p port_no]
+
+    python2 mirror.py [-c dirs_file] [-p port_no]
+
 2. On machine B, add the address of machine A as the topmost mirror. In /etc/pacman.d/mirrorlist:
-      Server = http://machineA:port_no/
+
+    Server = http://machineA:port_no/
 
 That's it. Might be a good idea to do a pacman -Sy on machine A before runing the script so that the databases are
 in sync. Don't forget to pacman -Syu before installing anything on machine A, however!
