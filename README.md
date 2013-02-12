@@ -4,6 +4,7 @@ by changing directory of where the packages are cached.
 
 Usage scenario:
 1. Archlinux installed on machine A and netinstall being done on machine B. A acts as mirror.
+
 2. Archlinux installed on Host A and netinstall being done on VM B. A acts as mirror.
 
 Quickstart:
